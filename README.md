@@ -16,21 +16,43 @@
 
 ## Milestone 2
 
-- Does what you have built in this milestone connect to the previous one? If so explain how. What technologies are used? Why have you used them? Have you run any commands in the terminal? If so insert them using backticks (To get syntax highlighting for code snippets add the language after the first backticks).
+- This milestone was all about ensuring the environment was setup to be compatible for working with the tensorflow data that was created via Teachable machine.
 
-- Example below:
+- The following packages were required in the conda environment in order to run the code:
+    - opencv-python
+    - tensorflow
+    - ipykernel
+    
+<br>
 
-```bash
-/bin/kafka-topics.sh --list --zookeeper 127.0.0.1:2181
-```
-
-- The above command is used to check whether the topic has been created successfully, once confirmed the API script is edited to send data to the created kafka topic. The docker container has an attached volume which allows editing of files to persist on the container. The result of this is below:
+- Once the environment was setup, the code below was provided in order to run through the model to interpret this as percentages so it could be utilised in a later milestone:
 
 ```python
-"""Insert your code here"""
-```
+import cv2
+from keras.models import load_model
+import numpy as np
+model = load_model('keras_model.h5')
+cap = cv2.VideoCapture(0)
+data = np.ndarray(shape=(1, 224, 224, 3), dtype=np.float32)
 
-> Insert screenshot of what you have built working.
+while True: 
+    ret, frame = cap.read()
+    resized_frame = cv2.resize(frame, (224, 224), interpolation = cv2.INTER_AREA)
+    image_np = np.array(resized_frame)
+    normalized_image = (image_np.astype(np.float32) / 127.0) - 1 # Normalize the image
+    data[0] = normalized_image
+    prediction = model.predict(data)
+    cv2.imshow('frame', frame)
+    # Press q to close the window
+    print(prediction)
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
+            
+# After the loop release the cap object
+cap.release()
+# Destroy all the windows
+cv2.destroyAllWindows()
+```
 
 ## Milestone n
 
