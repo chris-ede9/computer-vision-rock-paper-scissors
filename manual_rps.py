@@ -1,10 +1,9 @@
 import random
 
-choices = ["rock", "paper", "scissors"]
-
 def get_computer_choice():
     # Returns a random value from the choices list
-    return random.choice(choices)
+    options = ["rock", "paper", "scissors"]
+    return random.choice(options)
 
 def get_user_choice():
     '''
@@ -13,9 +12,10 @@ def get_user_choice():
     Returns:
         String: "Rock", "Paper" or "Scissors"
     '''
+    options = ["rock", "paper", "scissors"]
     while True:
         choice = input("Please select Rock, Paper or Scissors ")
-        if choice.lower() in choices:
+        if choice.lower() in options:
             return choice
         else:
             print("Invalid choice picked!")
