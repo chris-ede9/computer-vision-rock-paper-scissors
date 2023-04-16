@@ -54,6 +54,77 @@ cap.release()
 cv2.destroyAllWindows()
 ```
 
+## Milestone 3
+
+- This milestone was all about creating the Rock, Paper, Scissors game in Python, simulating a user manual input and comparing this against a computer random input to confirm the result.
+
+- The code was written in the file - manual_rps.py:
+
+```python
+import random
+
+def get_computer_choice():
+    # Returns a random value from the options list
+    options = ["rock", "paper", "scissors"]
+    return random.choice(options)
+
+def get_user_choice():
+    '''
+    This fuction asks the user to select Rock, Paper or Scissors and validates the request until its valid
+
+    Returns:
+        String: "Rock", "Paper" or "Scissors"
+    '''
+    options = ["rock", "paper", "scissors"]
+    while True:
+        choice = input("Please select Rock, Paper or Scissors ")
+        if choice.lower() in options:
+            return choice
+        else:
+            print("Invalid choice picked!")
+
+def get_winner(computer_choice, user_choice):
+    '''
+    This fuction determines the winner of a Rock, Paper, Scissors game by comparing the computer choice and the user choice
+
+    Returns:
+        Nothing
+    '''
+    if computer_choice.lower() == user_choice.lower():
+        print("It is a tie!")
+    elif computer_choice.lower() == "rock":
+        if user_choice.lower() == "scissors":
+            print("You lost")
+        elif user_choice.lower() == "paper":
+            print("You won!")
+    elif computer_choice.lower() == "paper":
+        if user_choice.lower() == "rock":
+            print("You lost")
+        elif user_choice.lower() == "scissors":
+            print("You won!")
+    elif computer_choice.lower() == "scissors":
+        if user_choice.lower() == "paper":
+            print("You lost")
+        elif user_choice.lower() == "rock":
+            print("You won!")
+    else:
+        print("An error occured")
+
+def play():
+    '''
+    This fuction plays a single game of Rock, Paper, Scissors where the user picks an option and will print out the result against the computer's choice
+
+    Returns:
+        Nothing
+    '''
+    user_choice = get_user_choice()
+    computer_choice = get_computer_choice()
+    print(f"Computer selected {computer_choice}")
+    get_winner(computer_choice, user_choice)
+
+play()
+```
+
 ## Milestone n
 
 - Continue this process for every milestone, making sure to display clear understanding of each task and the concepts behind them as well as understanding of the technologies used.
