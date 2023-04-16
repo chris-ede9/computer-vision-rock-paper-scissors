@@ -46,3 +46,17 @@ def get_winner(computer_choice, user_choice):
             print("You won!")
     else:
         print("An error occured")
+
+def play():
+    '''
+    This fuction plays a single game of Rock, Paper, Scissors where the user picks an option and will print out the result against the computer's choice
+
+    Returns:
+        Nothing
+    '''
+    user_choice = get_user_choice()
+    computer_choice = get_computer_choice()
+    print(f"Computer selected {computer_choice}")
+    get_winner(computer_choice, user_choice)
+
+play()
