@@ -67,37 +67,60 @@ def get_winner(computer_choice, user_choice):
     '''
     if user_choice.lower() == "nothing":
         print("No user choice was selected")
+        return "nothing"
     elif computer_choice.lower() == user_choice.lower():
         print("It is a tie!")
+        return "tie"
     elif computer_choice.lower() == "rock":
         if user_choice.lower() == "scissors":
-            print("You lost")
+            print("You lost the round")
+            return "computer"
         elif user_choice.lower() == "paper":
-            print("You won!")
+            print("You won the round!")
+            return "user"
     elif computer_choice.lower() == "paper":
         if user_choice.lower() == "rock":
-            print("You lost")
+            print("You lost the round")
+            return "computer"
         elif user_choice.lower() == "scissors":
-            print("You won!")
+            print("You won the round!")
+            return "user"
     elif computer_choice.lower() == "scissors":
         if user_choice.lower() == "paper":
-            print("You lost")
+            print("You lost the round")
+            return "computer"
         elif user_choice.lower() == "rock":
-            print("You won!")
+            print("You won the round!")
+            return "user"
     else:
         print("Error occurred")
 
 def play():
     '''
     This fuction plays a single game of Rock, Paper, Scissors where the user picks an option and will print out the result against the computer's choice
+    The winner is the first to win 3 rounds
 
     Returns:
         Nothing
     '''
-    user_choice = get_prediction()
-    computer_choice = get_computer_choice()
-    print(f"User selected {user_choice}")
-    print(f"Computer selected {computer_choice}")
-    get_winner(computer_choice, user_choice)
+    computer_wins = 0
+    user_wins = 0
+
+    while computer_wins < 3 and user_wins < 3:
+        user_choice = get_prediction()
+        computer_choice = get_computer_choice()
+        print(f"User selected {user_choice}")
+        print(f"Computer selected {computer_choice}")
+        winner = get_winner(computer_choice, user_choice)
+
+        if winner == "computer":
+            computer_wins += 1
+        elif winner == "user":
+            user_wins += 1
+
+    if computer_wins > user_wins:
+        print("You lost the game")
+    elif computer_wins < user_wins:
+        print("You won the game!!!")
 
 play()
