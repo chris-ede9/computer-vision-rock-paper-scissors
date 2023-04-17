@@ -2,6 +2,7 @@ import random
 import cv2
 from keras.models import load_model
 import numpy as np
+import time
 
 def get_computer_choice():
     '''
@@ -17,6 +18,7 @@ def get_prediction():
     '''
     This fuction uses the keras models data to determine the user choice by a still image taken from the webcam
 
+
     Returns:
         String: The game choice from the user
     '''
@@ -24,16 +26,24 @@ def get_prediction():
     cap = cv2.VideoCapture(0)
     data = np.ndarray(shape=(1, 224, 224, 3), dtype=np.float32)
 
-    ret, frame = cap.read()
-    resized_frame = cv2.resize(frame, (224, 224), interpolation = cv2.INTER_AREA)
-    image_np = np.array(resized_frame)
-    normalized_image = (image_np.astype(np.float32) / 127.0) - 1 # Normalize the image
-    data[0] = normalized_image
-    prediction = model.predict(data)
-    cv2.imshow('frame', frame)
-    index_max = np.argmax(prediction)
+    result = [0] * 4
 
-    # The index determines which choice to retrun based on the labels.txt file
+    # Loop for 5 seconds, capturing the image choice index each time and adding it in the results array
+    t_end = time.time() + 5
+    while time.time() < t_end:
+        ret, frame = cap.read()
+        resized_frame = cv2.resize(frame, (224, 224), interpolation = cv2.INTER_AREA)
+        image_np = np.array(resized_frame)
+        normalized_image = (image_np.astype(np.float32) / 127.0) - 1 # Normalize the image
+        data[0] = normalized_image
+        prediction = model.predict(data)
+        cv2.imshow('frame', frame)
+        index_max = np.argmax(prediction)
+        result[index_max] += 1
+
+    # Get the max value from the result array
+    index_max = np.argmax(result)
+    # The index determines which choice to return based on the labels.txt file
     if index_max == 0:
         return "Rock"
     elif index_max == 1:
@@ -55,7 +65,9 @@ def get_winner(computer_choice, user_choice):
     Returns:
         Nothing
     '''
-    if computer_choice.lower() == user_choice.lower():
+    if user_choice.lower() == "nothing":
+        print("No user choice was selected")
+    elif computer_choice.lower() == user_choice.lower():
         print("It is a tie!")
     elif computer_choice.lower() == "rock":
         if user_choice.lower() == "scissors":
@@ -73,7 +85,7 @@ def get_winner(computer_choice, user_choice):
         elif user_choice.lower() == "rock":
             print("You won!")
     else:
-        print("No choice was selected")
+        print("Error occurred")
 
 def play():
     '''
@@ -84,5 +96,8 @@ def play():
     '''
     user_choice = get_prediction()
     computer_choice = get_computer_choice()
+    print(f"User selected {user_choice}")
     print(f"Computer selected {computer_choice}")
     get_winner(computer_choice, user_choice)
+
+play()
