@@ -6,7 +6,7 @@ import time
 
 def get_computer_choice():
     '''
-    This fuction picks a random choice from the list containing "Rock", "Paper" or "Scissors"
+    This function picks a random choice from the list containing "Rock", "Paper" or "Scissors"
 
     Returns:
         String: The random game choice from the computer
@@ -16,7 +16,7 @@ def get_computer_choice():
 
 def get_prediction():
     '''
-    This fuction uses the keras models data to determine the user choice by a still image taken from the webcam
+    This function uses the keras models data to determine the user choice by a still image taken from the webcam
 
 
     Returns:
@@ -41,6 +41,9 @@ def get_prediction():
         index_max = np.argmax(prediction)
         result[index_max] += 1
 
+        if cv2.waitKey(1) == ord('q'):
+            break
+
     # Get the max value from the result array
     index_max = np.argmax(result)
     # The index determines which choice to return based on the labels.txt file
@@ -60,7 +63,7 @@ def get_prediction():
 
 def get_winner(computer_choice, user_choice):
     '''
-    This fuction determines the winner of a Rock, Paper, Scissors game by comparing the computer choice and the user choice
+    This function determines the winner of a Rock, Paper, Scissors game by comparing the computer choice and the user choice
 
     Returns:
         Nothing
@@ -97,7 +100,7 @@ def get_winner(computer_choice, user_choice):
 
 def play():
     '''
-    This fuction plays a single game of Rock, Paper, Scissors where the user picks an option and will print out the result against the computer's choice
+    This function plays a single game of Rock, Paper, Scissors where the user picks an option and will print out the result against the computer's choice
     The winner is the first to win 3 rounds
 
     Returns:
