@@ -125,14 +125,12 @@ def play():
 play()
 ```
 
-## Milestone n
+## Milestone 4
 
-- Continue this process for every milestone, making sure to display clear understanding of each task and the concepts behind them as well as understanding of the technologies used.
+- This milestone was about combining the Teachable Machine data and applying that into the game. This resulted in a fully operational game played via the webcam to determine the user's choice in the game.
 
-- Also don't forget to include code snippets and screenshots of the system you are building, it gives proof as well as it being an easy way to evidence your experience!
+- Initially the tasks that were to be completed were to capture the prediction that was taken via the video capture, add a 5 second timer between each round and make the game first to 3 round wins, wins the game. This was implemented in the <b>camera_rps.py</b> file.
 
-## Conclusions
+- The module then encouraged us to rewrite the application to improve the code quality and the user experience. With this in mind the score was now shown on the webcam screen, along with a timer countdown between rounds. It also pauses between rounds to ask the user when ready and once the game is completed it asks if they would like to play again. The application is also more efficient as the web capture feature is loaded on initialisation and closed when the game is closed down, unlike in the previous version where it was loaded and closed per round.
 
-- Maybe write a conclusion to the project, what you understood about it and also how you would improve it or take it further.
-
-- Read through your documentation, do you understand everything you've written? Is everything clear and cohesive?
+- The latest version of the game can be ran from <b>rock_paper_scissors.py</b>
